@@ -2,28 +2,30 @@
 
 using namespace std;
 
-void validarMatricula(int matricula){
-    while (matricula<100000 || matricula>999999)
+int totalDosis=0;
+int dosis=0;
+int cantidad=0;
+
+void datos(){
+    do
     {
-        cout<<"\nEl valor no es una matricula";
-        cout<<"\nVuelve a intentarlo: ";
-        cin>>matricula;
+        cout<<"\nIngresa la cantidad de ml del fraco de jarabe: ";
+        cin>>cantidad;
+    } while (cantidad<0);
+
+    cout<<"\nIngresa la cantidad que tienes que tomar de jarabe: ";
+    cin>>dosis;
+
+    if (dosis>0)
+    {
+        totalDosis=cantidad/dosis;
+        cout<<"El fraco te alcanza para "<<totalDosis<<" dosis";
+    }else{
+        cout<<"No se puede calcular";
     }
-
-    cout<<"\nDatos correctos";
-
-}
-
-void solicitarDatos(){
-    int matricula;
-    string nombre;
-    cout<<"\nIngresa tu matricula: ";
-    cin>>matricula;
-    cout<<"\nIngresa tu primer nombre: ";
-    cin>>nombre;
-    validarMatricula(matricula);
+    
 }
 
 main(){
-    solicitarDatos();
+    datos();
 }

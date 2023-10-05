@@ -2,30 +2,30 @@
 
 using namespace std;
 
-int totalDosis=0;
-int dosis=0;
-int cantidad=0;
+int puntajeMaximo, puntajeMinimo, intento;
 
-void datos(){
+void calculo(){
     do
     {
-        cout<<"\nIngresa la cantidad de ml del fraco de jarabe: ";
-        cin>>cantidad;
-    } while (cantidad<0);
+        cout<<"\nIngresa el puntaje maximo de 1 actividad: ";
+        cin>>puntajeMaximo;
 
-    cout<<"\nIngresa la cantidad que tienes que tomar de jarabe: ";
-    cin>>dosis;
-
-    if (dosis>0)
-    {
-        totalDosis=cantidad/dosis;
-        cout<<"El fraco te alcanza para "<<totalDosis<<" dosis";
-    }else{
-        cout<<"No se puede calcular";
-    }
-    
+        if (puntajeMaximo<0)
+        {
+            cout<<"\nVerifique sus datos";
+            intento=1;
+        }else{
+            intento=0;
+        } 
+    } while (intento==1);
+     
+    puntajeMinimo=puntajeMaximo*0.7;
+    cout<<"\nPuntaje minimo aprobatorio: "<<puntajeMinimo;
 }
 
 main(){
-    datos();
+    calculo();
 }
+
+
+
