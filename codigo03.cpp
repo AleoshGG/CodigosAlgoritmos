@@ -2,30 +2,28 @@
 
 using namespace std;
 
-int puntajeMaximo, puntajeMinimo, intento;
-
-void calculo(){
-    do
+void validarMatricula(int matricula){
+    while (matricula<100000 || matricula>999999)
     {
-        cout<<"\nIngresa el puntaje maximo de 1 actividad: ";
-        cin>>puntajeMaximo;
+        cout<<"\nEl valor no es una matricula";
+        cout<<"\nVuelve a intentarlo: ";
+        cin>>matricula;
+    }
 
-        if (puntajeMaximo<0)
-        {
-            cout<<"\nVerifique sus datos";
-            intento=1;
-        }else{
-            intento=0;
-        } 
-    } while (intento==1);
-     
-    puntajeMinimo=puntajeMaximo*0.7;
-    cout<<"\nPuntaje minimo aprobatorio: "<<puntajeMinimo;
+    cout<<"\nDatos correctos";
+
+}
+
+void solicitarDatos(){
+    int matricula;
+    string nombre;
+    cout<<"\nIngresa tu matricula: ";
+    cin>>matricula;
+    cout<<"\nIngresa tu primer nombre: ";
+    cin>>nombre;
+    validarMatricula(matricula);
 }
 
 main(){
-    calculo();
+    solicitarDatos();
 }
-
-
-
