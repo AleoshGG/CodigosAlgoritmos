@@ -1,0 +1,4 @@
+Caso practico.
+	En una tienda de productos informaticos la informacion sobre los mismos se maneja por codigo de producto y cantidad se requiere un programa que permita cargar la informacion de los productos para poder realizar adquisicion de nuevos productos, esto consiste en: el encargado de la tienda ingresa la cantidad que adquire de un poveedor y el programa debera actualizar el stock.
+	Para no quedarse sin existencia de algun producto la tienda maneja un strock minimo de 15 piezas por produco, cuando se cuenta con menos cantidad, la aplicacion debera lanzar una notificacion al encargado. Considere el manejo de informacion de dos productos.
+
