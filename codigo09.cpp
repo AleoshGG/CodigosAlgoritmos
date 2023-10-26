@@ -2,7 +2,6 @@
 #include<string>
 using namespace std;
 void clasificarEmergencia(string ubicacion, string nombre);
-void clasificarEmergencia(string ubicacion,string nombre);
 
 string pedirNombre(){
     string nombre;
@@ -21,7 +20,7 @@ void recopilarInformacion(){
     string ubi4="Monumento del Jaguar";
     string ubi5="OXXO";
     cout<<"\n";
-    cout<<"Ingrese el dijito de su ubicacion mas cercana: \n";
+    cout<<"Ingrese el digito de su ubicacion mas cercana: \n";
     cout<<"1. "<<ubi1<<endl;
     cout<<"2. "<<ubi2<<endl;
     cout<<"3. "<<ubi3<<endl;
@@ -52,7 +51,7 @@ void recopilarInformacion(){
 void clasificarEmergencia(string ubicacion, string nombre){
     int emergencia;
     cout<<"\n";
-    cout<<"Ingrese el dijito del tipo de emergencia: \n";
+    cout<<"Ingrese el digito del tipo de emergencia: \n";
     cout<<"1. Emergencia Medica\n";
     cout<<"2. Incendio\n";
     cout<<"3. Accidente de trafico grave\n";
