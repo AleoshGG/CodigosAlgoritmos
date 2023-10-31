@@ -1,53 +1,72 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
+void definirIntervalo(double a, double e, double b, double c);
+double aplicarMetodo(double xl, double xu, double error, double a, double e,  double b, double c);
+double calcularFx(double x, double a, double e, double b, double c);
 
-// La función cuya raíz deseamos encontrar
-double funcion(double x) {
-    cout<<"Funciones disponibles de la primera version: \n";
-    cout<<"1. f(x)=ax^2+bx+c\n";
-    
-    return x * x - 4; // Por ejemplo, x^2 - 4 = 0
+// Vamos a dejar que el ususario pueda definir una funcion f(x)
+void elegirFuncion(){
+    double a,e,b,c;
+    cout<<"\nPara que el programa pueda funcionar necesita una funcion de la siguente forma: \n";
+    cout<<"f(x)= ax^e + bx + c\n";
+    cout<<"\nIngrese los valores que se le indica:\n";
+    cout<<"a: ";cin>>a;
+    cout<<"e: ";cin>>e;
+    cout<<"b: ";cin>>b;
+    cout<<"c: ";cin>>c;   
+    //Le pasamos estos valores a la funcion:
+    definirIntervalo(a,e,b,c);
 }
 
-// Función que implementa el método de la bisección
-double metodoBiseccion(double a, double b, double epsilon) {
-    if (funcion(a) * funcion(b) >= 0) {
-        cout<< "El método de la bisección no es aplicable en este intervalo."<<endl;
+//Dejamos que el usuario ingrese los valores de los intervalos en los que se encuantra la raiz
+void definirIntervalo(double a, double e, double b, double c){
+    double xl,xu,error; 
+    error=0.00000000001; // Tolerancia para la aproximación
+    cout<<"\nIngrese el intervalo izquierdo Xl: ";
+    cin>>xl;
+    cout<<"Ingrese el intervalo derecho Xu: ";
+    cin>>xu;
+
+    //Teniendo los valores que necesitamos los mandamos a la funcion para realizar los calculos
+    //Y luego cachamos los resultados en la variable raiz
+    double raiz=aplicarMetodo(xl, xu, error, a, e, b, c);
+
+    cout<<"La raiz aproximada es: "<< raiz<<"\n";
+}
+
+// Funcion que implementa el metodo de la biseccion
+double aplicarMetodo(double xl, double xu, double error, double a, double e,  double b, double c){
+    //En calcularFx() hacemos el calculo de la funcion f(x), con los distintos valores que va recibiendo
+
+    //Vemos si se puede encontrar la raiz
+    if (calcularFx(xl, a,e,b,c) * calcularFx(xu, a,e,b,c) >= 0) {
+        cout<< "El metodo de la biseccion no es aplicable en este intervalo.\n";
         return 0.0;
     }
 
-    double c;
-    while ((b - a) >= epsilon) {
-        c = (a + b) / 2; // Calculamos el punto medio
+    double xr;
+    while ((xu - xl) >= error) {
+        xr = (xl + xu) / 2; // Calculamos el punto medio
 
-        if (funcion(c) == 0.0) {
+        if (calcularFx(xr, a,e,b,c) == 0.0) {
             break; // Encontramos la raíz exacta
-        } else if (funcion(c) * funcion(a) < 0) {
-            b = c; // Reemplazamos el intervalo [a, c]
+        } else if (calcularFx(xr, a, e,b,c) * calcularFx(xl, a,e,b,c) < 0) {
+            xu = xr; // Reemplazamos el intervalo [a, c]
         } else {
-            a = c; // Reemplazamos el intervalo [c, b]
+            xl = xr; // Reemplazamos el intervalo [c, b]
         }
     }
 
-    return c;
+    return xr;
 }
 
-void pedirDatos(){
-    double xl,xu,error; // Extremo izquierdo del intervalo
-    cout<<"Ingrese el intervalo izquierdo Xl: ";
-    cin>>xl;
-    cout<<"Ingrese el intervalo derecho Xu: ";// Extremo derecho del intervalo
-    cin>>xu;
-
-    error = 0.00001; // Tolerancia para la aproximación
-
-    double raiz = metodoBiseccion(xl, xu, error);
-
-    cout<< "La raiz aproximada es: " << raiz <<endl;
+//Calcula los distintos valores de x en f(x)
+double calcularFx(double x, double a, double e, double b, double c){
+    x=(a*pow((x),e))+(b*x)+c; 
+    return x;
 }
 
 int main() {
-    pedirDatos();
-    return 0;
+    elegirFuncion();
 }
