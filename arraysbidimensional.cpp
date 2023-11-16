@@ -22,6 +22,7 @@ void buscar(){
     cout<<"\n-----------DETALLES------------\n";
     cout<<"Ingrese el nombre del producto: ";
     cin>>busqueda;
+    
     int i;
     for(i = 0; i < 3; i++){
         if(product[0][i]==busqueda){
