@@ -11,12 +11,19 @@ void calcular(){
 
 void aplicarEspecial(int cantidad){
     int especial,cantidadEsp;
+    string agregar;
     cout<<"1. Aplicar a todo\n";
     cout<<"2. Aplicar a una cantidad\nOpcion: ";
     cin>>especial;
         
     if(especial==1){
-        calcular();
+        cout<<"\nAgregar mas comidas (SI/NO): ";
+        cin>>agregar;
+        if(agregar=="SI"){
+            tomarPedido();
+        }else{
+            calcular();
+        }
     }else if(especial==2){
         do{
             cout<<"\nIngrese la cantidad de especiales: ";
@@ -24,10 +31,15 @@ void aplicarEspecial(int cantidad){
             if(cantidadEsp>cantidad||cantidadEsp<0)
                 cout<<"\nNo puede exeder al numero de ordenes, intentelo de nuevo\n";
         }while(cantidadEsp>cantidad||cantidadEsp<0);
-        calcular();
-    }else{
-        cout<<"\nOpcion no valida, intentelo de nuevo \n";
-    }
+        cout<<"\nAgregar mas comidas: (SI/NO)";
+        cin>>agregar;
+        if(agregar=="SI"){
+            tomarPedido();
+        }else{
+            calcular();
+        }
+    }else        
+    cout<<"\nOpcion no valida, intentelo de nuevo \n";
 }
 
 void contador(int ubicacion, int cantidad){
