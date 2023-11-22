@@ -12,11 +12,13 @@ double calcularIva(double subtotal){
 }
 
 void calcularFinal(int ubicacion, double precio[]){
-    for(int i=0; i<2; i++){
+    double precioEsp[]={40,70,75};
+
         for(int j=0; j<3; j++){
-            cantidades[i][j]*=precio[j];
+            cantidades[0][j]*=precio[j];
+            cantidades[1][j]*=precioEsp[j];
         }
-    }
+    
     double subtotal;
     for(int i=0; i<2; i++){
         for(int j=0; j<3; j++){
