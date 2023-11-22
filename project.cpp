@@ -3,47 +3,24 @@ using namespace std;
 void tomarPedido();
 void verEstadistica();
 void contador(int ubicacion, int cantidad);
-void calcular(double precio[],int cantidad,int cantidadEsp,int ubicacion);
+
+double cantidades[2][3];
 
 double calcularIva(double subtotal){
     subtotal*=1.16;
     return subtotal;
 }
 
-void calcular(double precio[],int cantidad,int cantidadEsp,int ubicacion){
-    double costo[2][3];
-    double memoria[2][3];
+void calcularFinal(int ubicacion, double precio[]){
+    for(int i=0; i<2; i++){
+        for(int j=0; j<3; j++){
+            cantidades[i][j]*=precio[j];
+        }
+    }
     double subtotal;
-    /* for(int i=0; i<2; i++){
-        for(int j=0; j<3; j++){
-            costo[i][j]=0;
-        }
-    } */
-    costo[0][ubicacion-1]=cantidad-cantidadEsp;
-    memoria[0][ubicacion-1]+=costo[0][ubicacion-1];
-    costo[1][ubicacion-1]=cantidadEsp;
-    memoria[1][ubicacion-1]+=costo[1][ubicacion-1];
-
     for(int i=0; i<2; i++){
         for(int j=0; j<3; j++){
-            cout<<memoria[i][j]<<" ";
-        }
-        cout<<"\n";
-    }
-
-    memoria[0][ubicacion-1]*=precio[ubicacion-1];
-    memoria[1][ubicacion-1]*=precio[ubicacion-1];
-
-    for(int i=0; i<2; i++){
-        for(int j=0; j<3; j++){
-            cout<<memoria[i][j]<<" ";
-        }
-        cout<<"\n";
-    }
-
-    for(int i=0; i<2; i++){
-        for(int j=0; j<3; j++){
-            subtotal+=memoria[i][j];
+            subtotal+=cantidades[i][j];
         }
     }
 
@@ -56,16 +33,27 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
     int especial,cantidadEsp;
     string agregar;
     cout<<"1. Aplicar a todo\n";
-    cout<<"2. Aplicar a una cantidad\nOpcion: ";
+    cout<<"2. Aplicar a una cantidad\n";
+    cout<<"3. No aplicar\nOpcion: ";
     cin>>especial;
-        
+    
+    cantidades[0][ubicacion-1]+=cantidad;
+    
+    for(int i=0; i<2; i++){
+        for(int j=0; j<3; j++){
+            cout<<cantidades[i][j]<<" ";
+        }
+        cout<<"\n";
+    }    
     if(especial==1){
+        cantidades[1][ubicacion-1]+=cantidades[0][ubicacion-1];
+        cantidades[0][ubicacion-1]-=cantidades[0][ubicacion-1];
         cout<<"\nAgregar mas comidas (SI/NO): ";
         cin>>agregar;
         if(agregar=="SI"){
             tomarPedido();
         }else{
-            calcular(precio,cantidad,cantidadEsp,ubicacion);
+            calcularFinal(ubicacion,precio);
         }
     }else if(especial==2){
         do{
@@ -74,18 +62,27 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
             if(cantidadEsp>cantidad||cantidadEsp<0)
                 cout<<"\nNo puede exeder al numero de ordenes, intentelo de nuevo\n";
         }while(cantidadEsp>cantidad||cantidadEsp<0);
+        cantidades[1][ubicacion-1]+=cantidad-cantidadEsp;
+        cantidades[0][ubicacion-1]-=cantidad-cantidadEsp;
         cout<<"\nAgregar mas comidas (SI/NO): ";
         cin>>agregar;
         if(agregar=="SI"){
             tomarPedido();
         }else if(agregar=="NO"){
-            calcular(precio,cantidad,cantidadEsp,ubicacion);
+            calcularFinal(ubicacion,precio);
         }
-    }else        
+         }else if(especial==3){
+        cout<<"\nAgregar mas comidas (SI/NO): ";
+        cin>>agregar;
+        if(agregar=="SI"){
+            tomarPedido();
+        }else if(agregar=="NO"){
+            calcularFinal(ubicacion, precio);
+        }
+    }
+    else       
     cout<<"\nOpcion no valida, intentelo de nuevo \n";
 }
-
-
 
 void contador(int ubicacion, int cantidad){
     int orden[3];
@@ -136,11 +133,15 @@ void tomarPedido(){
 void verEstadistica(){}
 
 
-
 int main(){
     int opcion;
 
     do{
+        for(int i=0; i<2; i++){
+            for(int j=0; j<3; j++){
+                cantidades[i][j]=0;
+            }
+        }
     cout<<"\nBienvenido al menu principal\n\n";
     cout<<"1. Tomar pedido.\n";
     cout<<"2. Ver estadisticas.\n";
