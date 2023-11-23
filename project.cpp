@@ -13,6 +13,16 @@ double calcularIva(double subtotal){
 
 void calcularFinal(int ubicacion, double precio[]){
     double precioEsp[]={40,70,75};
+    cout<<"\n--------INFORME----------\n";
+    cout<<"NORMALES:     ";
+    for(int i=0; i<2; i++){
+        for(int j=0; j<3; j++){
+            cout<<cantidades[i][j]<<" ";
+        }
+        cout<<"\n";
+        if (i==0)
+    cout<<"ESPECIALES:   ";    
+    }  
 
         for(int j=0; j<3; j++){
             cantidades[0][j]*=precio[j];
@@ -40,13 +50,7 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
     cin>>especial;
     
     cantidades[0][ubicacion-1]+=cantidad;
-    
-    for(int i=0; i<2; i++){
-        for(int j=0; j<3; j++){
-            cout<<cantidades[i][j]<<" ";
-        }
-        cout<<"\n";
-    }    
+      
     if(especial==1){
         cantidades[1][ubicacion-1]+=cantidades[0][ubicacion-1];
         cantidades[0][ubicacion-1]-=cantidades[0][ubicacion-1];
@@ -64,8 +68,8 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
             if(cantidadEsp>cantidad||cantidadEsp<0)
                 cout<<"\nNo puede exeder al numero de ordenes, intentelo de nuevo\n";
         }while(cantidadEsp>cantidad||cantidadEsp<0);
-        cantidades[1][ubicacion-1]+=cantidad-cantidadEsp;
-        cantidades[0][ubicacion-1]-=cantidad-cantidadEsp;
+        cantidades[0][ubicacion-1]=cantidad-cantidadEsp;
+        cantidades[1][ubicacion-1]+=cantidadEsp;
         cout<<"\nAgregar mas comidas (SI/NO): ";
         cin>>agregar;
         if(agregar=="SI"){
