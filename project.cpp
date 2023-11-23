@@ -2,6 +2,7 @@
 using namespace std;
 void tomarPedido();
 void verEstadistica();
+
 double cantidades[2][3];
 double memoria[2][3];
 
@@ -13,6 +14,7 @@ double calcularIva(double subtotal){
 void calcularFinal(int ubicacion, double precio[]){
     double precioEsp[]={40,70,75};
     cout<<"\n--------INFORME----------\n";
+    cout<<"              E C H\n";
     cout<<"NORMALES:     ";
     for(int i=0; i<2; i++){
         for(int j=0; j<3; j++){
@@ -117,23 +119,18 @@ void tomarPedido(){
     }
     cout<<"Opcion: ";
     cin>>opcion;
-
+    cout<<"\nIngrese la cantidad de ordenes: ";
+    cin>>cantidad; 
     switch(opcion){
-        case 1: cout<<"\nIngrese la cantidad de ordenes: ";
-                cin>>cantidad; 
-                cout<<"\n¿Aplicar especial?\n";
+        case 1: cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Se entrega 1/2 de la orden de ensalada, al precio de una completa\n";
                 aplicarEspecial(cantidad, precio,opcion);
         break;
-        case 2: cout<<"\nIngrese la cantidad de ordenes: ";
-                cin>>cantidad; 
-                cout<<"\n¿Aplicar especial?\n";
+        case 2: cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Se entrega 1/2 de la orden de carne, al precio de una completa\n";
                 aplicarEspecial(cantidad, precio,opcion);
         break;
-        case 3: cout<<"\nIngrese la cantidad de ordenes: ";
-                cin>>cantidad; 
-                cout<<"\n¿Aplicar especial?\n";
+        case 3: cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Hamburguesa Vegetariana, con un costo adicional de $25\n";
                 aplicarEspecial(cantidad,precio,opcion);
         break;
@@ -146,7 +143,7 @@ void tomarPedido(){
 void verEstadistica(){
     string tiposComida[]={"Ensalada    ","Carne       ","Hambuerguesa"};
     int ubicacion=contador();
-    cout<<"\nLa comida mas vendida es: "<<tiposComida[ubicacion];
+    cout<<"\nLa comida mas vendida es: "<<tiposComida[ubicacion]<<"\n";
 }
 
 
