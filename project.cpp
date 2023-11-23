@@ -2,9 +2,8 @@
 using namespace std;
 void tomarPedido();
 void verEstadistica();
-void contador(int ubicacion, int cantidad);
-
 double cantidades[2][3];
+double memoria[2][3];
 
 double calcularIva(double subtotal){
     subtotal*=1.16;
@@ -90,9 +89,20 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
     cout<<"\nOpcion no valida, intentelo de nuevo \n";
 }
 
-void contador(int ubicacion, int cantidad){
+int contador(){
     int orden[3];
-    orden[ubicacion-1]+=cantidad;
+    for (int i=0; i<3; i++){
+        orden[i]=memoria[0][i]+memoria[1][i];
+    }
+    int numeroMayor=orden[0];
+    int posicion=0;
+    for (int i = 1; i < 3; ++i) {
+        if (orden[i] > numeroMayor) {
+            numeroMayor = orden[i];
+            posicion = i;
+        }
+    }
+    return posicion;
 }
 
 void tomarPedido(){
@@ -111,21 +121,18 @@ void tomarPedido(){
     switch(opcion){
         case 1: cout<<"\nIngrese la cantidad de ordenes: ";
                 cin>>cantidad; 
-                contador(opcion,cantidad);
                 cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Se entrega 1/2 de la orden de ensalada, al precio de una completa\n";
                 aplicarEspecial(cantidad, precio,opcion);
         break;
         case 2: cout<<"\nIngrese la cantidad de ordenes: ";
                 cin>>cantidad; 
-                contador(opcion,cantidad);
                 cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Se entrega 1/2 de la orden de carne, al precio de una completa\n";
                 aplicarEspecial(cantidad, precio,opcion);
         break;
         case 3: cout<<"\nIngrese la cantidad de ordenes: ";
                 cin>>cantidad; 
-                contador(opcion,cantidad);
                 cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Hamburguesa Vegetariana, con un costo adicional de $25\n";
                 aplicarEspecial(cantidad,precio,opcion);
@@ -136,13 +143,22 @@ void tomarPedido(){
     
 }
 
-void verEstadistica(){}
+void verEstadistica(){
+    string tiposComida[]={"Ensalada    ","Carne       ","Hambuerguesa"};
+    int ubicacion=contador();
+    cout<<"\nLa comida mas vendida es: "<<tiposComida[ubicacion];
+}
 
 
 int main(){
     int opcion;
 
     do{
+        for(int i=0; i<2; i++){
+            for(int j=0; j<3; j++){
+                memoria[i][j]+=cantidades[i][j];
+            }
+        }
         for(int i=0; i<2; i++){
             for(int j=0; j<3; j++){
                 cantidades[i][j]=0;
