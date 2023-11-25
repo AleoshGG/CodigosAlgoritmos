@@ -39,7 +39,7 @@ void calcularFinal(int ubicacion, double precio[]){
 
     double total=calcularIva(subtotal);
     
-    cout<<"\nEl costo total de su compra es de: $"<<total<<"\n";
+    cout<<"\nEl costo total de su compra es de: $"<<total<<" con IVA incluido\n";
 }
 
 void aplicarEspecial(int cantidad, double precio[],int ubicacion){
@@ -66,8 +66,8 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
         do{
             cout<<"\nIngrese la cantidad de especiales: ";
             cin>>cantidadEsp;
-            if(cantidadEsp>cantidad||cantidadEsp<0)
-                cout<<"\nNo puede exeder al numero de ordenes, intentelo de nuevo\n";
+            if(cantidadEsp>cantidad||cantidadEsp<0){
+                cout<<"\nNo puede exeder al numero de ordenes, intentelo de nuevo\n";}
         }while(cantidadEsp>cantidad||cantidadEsp<0);
         cantidades[0][ubicacion-1]=cantidad-cantidadEsp;
         cantidades[1][ubicacion-1]+=cantidadEsp;
@@ -87,8 +87,9 @@ void aplicarEspecial(int cantidad, double precio[],int ubicacion){
             calcularFinal(ubicacion, precio);
         }
     }
-    else       
-    cout<<"\nOpcion no valida, intentelo de nuevo \n";
+    else{
+        cout<<"\nOpcion no valida, intentelo de nuevo \n";
+    }       
 }
 
 int contador(){
@@ -107,6 +108,13 @@ int contador(){
     return posicion;
 }
 
+void validarCantidad(int cantidad){ 
+    if (cantidad<=0){
+        cout<<"\nNo tiene sentido continuar\n";
+        tomarPedido();
+    }
+}
+
 void tomarPedido(){
     int cantidad;
     int opcion;
@@ -120,21 +128,24 @@ void tomarPedido(){
     cout<<"Opcion: ";
     cin>>opcion;
     cout<<"\nIngrese la cantidad de ordenes: ";
-    cin>>cantidad; 
+    cin>>cantidad;
     switch(opcion){
-        case 1: cout<<"\n¿Aplicar especial?\n";
+        case 1: validarCantidad(cantidad);
+                cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Se entrega 1/2 de la orden de ensalada, al precio de una completa\n";
                 aplicarEspecial(cantidad, precio,opcion);
         break;
-        case 2: cout<<"\n¿Aplicar especial?\n";
+        case 2: validarCantidad(cantidad);
+                cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Se entrega 1/2 de la orden de carne, al precio de una completa\n";
                 aplicarEspecial(cantidad, precio,opcion);
         break;
-        case 3: cout<<"\n¿Aplicar especial?\n";
+        case 3: validarCantidad(cantidad);
+                cout<<"\n¿Aplicar especial?\n";
                 cout<<"DESCRIPCION: Hamburguesa Vegetariana, con un costo adicional de $25\n";
                 aplicarEspecial(cantidad,precio,opcion);
         break;
-        default: cout<<"\nOpcion no valida, intentelo de nuevo \n";
+        default: cout<<"\nOpcion no valida, intentelo de nuevo \n"; tomarPedido();
         break;
     }
     
